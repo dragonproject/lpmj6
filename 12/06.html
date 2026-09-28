@@ -1,3 +1,83 @@
-8am-Noon<input type="radio" name="time" value="1">
-Noon-4pm<input type="radio" name="time" value="2" checked="checked">
- 4pm-8pm<input type="radio" name="time" value="3">
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ラジオボタンの選択 - 06.html</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      pre {
+        font-family: monospace;
+        background: #f8f8f8;
+        padding: 10px;
+        border-radius: 4px;
+        width: fit-content;
+      }
+      .result {
+        margin-top: 10px;
+        padding: 8px 12px;
+        background: #e6ffe6;
+        border-left: 4px solid #00cc00;
+        width: fit-content;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>ラジオボタンの選択</h2>
+
+    <form id="timeForm" method="post" action="time_result.php">
+      <pre>
+    希望時間帯:
+        <label>
+            <input type="radio" name="time" value="8am-Noon"> 8am-Noon
+        </label><br>
+        <label>
+            <input type="radio" name="time" value="Noon-4pm" checked="checked"> Noon-4pm
+        </label><br>
+        <label>
+            <input type="radio" name="time" value="4pm-8pm"> 4pm-8pm
+        </label><br>
+    <input type="submit" value="送信">
+  </pre>
+    </form>
+
+    <hr />
+    <h3>参考： JavaScript で選択値を取得する例</h3>
+    <button id="btnGet">選択中の時間帯をアラートで表示</button>
+    <div id="msg"></div>
+
+    <script>
+      const timeRadios = document.querySelectorAll('input[name="time"]');
+      const btnGet = document.getElementById("btnGet");
+      const msgBox = document.getElementById("msg");
+
+      btnGet.addEventListener("click", function () {
+        let selectedValue = null;
+        timeRadios.forEach((radio) => {
+          if (radio.checked) {
+            selectedValue = radio.value;
+          }
+        });
+
+        if (selectedValue === null) {
+          msgBox.textContent =
+            "希望時間帯が選択されていません。ラジオボタンを選択してください。";
+          return;
+        }
+
+        const message =
+          "現在選択中の時間帯: " +
+          selectedValue +
+          " (value属性: " +
+          selectedValue +
+          ")";
+        msgBox.textContent = message;
+        alert(message);
+      });
+    </script>
+  </body>
+</html>

@@ -1,3 +1,110 @@
-   Vanilla <input type="checkbox" name="ice[]" value="Vanilla">
- Chocolate <input type="checkbox" name="ice[]" value="Chocolate">
-Strawberry <input type="checkbox" name="ice[]" value="Strawberry">
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>チェックボックスの選択解除の例 - 05.html</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      pre {
+        font-family: monospace;
+        background: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>チェックボックスの選択解除の例</h2>
+
+    <form id="iceForm" method="post" action="ice_result.php">
+      <pre>
+    アイスクリーム: 
+        <label>
+            <input type="checkbox" name="ice[]" value="バニラ"> バニラ
+        </label>
+        <label>
+            <input type="checkbox" name="ice[]" value="チョコレート"> チョコレート
+        </label>
+        <label>
+            <input type="checkbox" name="ice[]" value="ストロベリー"> ストロベリー
+        </label>
+        <br>
+        <input type="submit" value="送信">
+    </pre>
+    </form>
+
+    <hr />
+    <h3>参考： JavaScript で選択解除する例</h3>
+    <button id="btnCheck">すべて選択</button>
+    <button id="btnClear">すべて選択解除</button>
+    <div id="msg"></div>
+
+    <script>
+      const checkboxes = document.querySelectorAll('input[name="ice[]"]');
+      const btnCheck = document.getElementById("btnCheck");
+      const btnClear = document.getElementById("btnClear");
+      const msgBox = document.getElementById("msg");
+
+      // 既存のイベントリスナーがあれば削除（安全のため）
+      const oldCheckHandler = btnCheck.onclick;
+      const oldClearHandler = btnClear.onclick;
+      btnCheck.onclick = null;
+      btnClear.onclick = null;
+
+      function checkState() {
+        if (checkboxes.length === 0) {
+          msgBox.textContent =
+            "チェックボックスが存在しません。HTMLを確認してください。";
+          return;
+        }
+
+        const checkedCount = document.querySelectorAll(
+          'input[name="ice[]"]:checked',
+        ).length;
+        const totalCount = checkboxes.length;
+
+        let message =
+          "現在 " +
+          checkedCount +
+          " 個 / " +
+          totalCount +
+          " 個が選択されています。";
+
+        if (checkedCount > 0) {
+          const selected = [];
+          checkboxes.forEach((cb) => {
+            if (cb.checked) selected.push(cb.value);
+          });
+          message += "\[" + selected.join(", ") + "]";
+        }
+
+        msgBox.textContent = message;
+        console.log(message); // 参考: consoleでも確認
+      }
+
+      function setAllChecked(checked) {
+        checkboxes.forEach((cb) => {
+          cb.checked = checked;
+        });
+        checkState();
+      }
+
+      btnCheck.addEventListener("click", function () {
+        setAllChecked(true);
+        if (typeof oldCheckHandler === "function") oldCheckHandler();
+      });
+
+      btnClear.addEventListener("click", function () {
+        setAllChecked(false);
+        if (typeof oldClearHandler === "function") oldClearHandler();
+      });
+
+      // ページ読み込み完了時にも状態を確認
+      window.addEventListener("load", function () {
+        checkState();
+      });
+    </script>
+  </body>
+</html>

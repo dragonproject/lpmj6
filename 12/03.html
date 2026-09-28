@@ -1,7 +1,198 @@
-<form method="post" action="calc.php"><pre>
-      Loan Amount <input type="text" name="principal">
-Monthly Repayment <input type="text" name="monthly">
-  Number of Years <input type="text" name="years"    value="15">
-    Interest Rate <input type="text" name="interest" value="3">
-                  <input type="submit">
-</pre></form>
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ローン計算機 - 03.html</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 30px;
+        line-height: 1.6;
+      }
+      h2 {
+        color: #333;
+      }
+      pre {
+        font-family: monospace;
+        background: #f4f4f4;
+        padding: 15px;
+        border-radius: 5px;
+        width: fit-content;
+      }
+      .result {
+        margin-top: 15px;
+        padding: 12px 18px;
+        background: #eef7ff;
+        border-left: 4px solid #007bff;
+        width: fit-content;
+        border-radius: 4px;
+      }
+      .error {
+        color: #d9534f;
+        font-weight: bold;
+      }
+      .notes {
+        background: #fff8e1;
+        border-left: 4px solid #ffc107;
+        padding: 10px 15px;
+        margin: 15px 0;
+        font-size: 13px;
+        color: #555;
+        border-radius: 4px;
+        width: fit-content;
+        max-width: 500px;
+      }
+      .notes ul {
+        margin: 5px 0 0 20px;
+        padding: 0;
+      }
+      .notes li {
+        margin-bottom: 4px;
+      }
+      input[type="submit"],
+      button {
+        cursor: pointer;
+        padding: 6px 14px;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>ローン計算機</h2>
+    <p>
+      「借入額」を入力して毎月返済額を計算するか、「毎月返済額」を入力して借入可能額を計算します。
+    </p>
+
+    <div class="notes">
+      <strong>【入力の注意事項】</strong>
+      <ul>
+        <li><strong>「借入額」</strong> または <strong>「毎月返済額」</strong> のどちらか一方を入力してください（両方入力した場合は借入額の計算が優先されます）。</li>
+        <li>金額は半角数字で入力してください（桁区切りのカンマは自動入力されます）。</li>
+        <li><strong>「返済期間」</strong> と <strong>「年利率」</strong> は必須です（0より大きい数値を指定してください）。</li>
+      </ul>
+    </div>
+
+    <form id="calcForm" method="post" action="calc.php">
+      <pre>
+    借入額 (円)       <input type="text" id="principal" name="principal" placeholder="例: 30,000,000">
+    毎月返済額 (円)   <input type="text" id="monthly" name="monthly" placeholder="例: 100,000">
+    返済期間 (年)     <input type="text" id="years" name="years" value="15">
+    年利率 (%)        <input type="text" id="interest" name="interest" value="3">
+    <input type="submit" value="PHPで計算"> <button type="button" id="jsCalcBtn">ブラウザで即時計算</button>
+  </pre>
+    </form>
+
+    <div id="resultBox" class="result" style="display: none"></div>
+
+    <script>
+      // 3桁区切りのカンマを付与する関数
+      function formatNumberWithCommas(val) {
+        if (!val) return "";
+        // カンマ以外の数字と小数点のみ抽出
+        const clean = val.toString().replace(/[^0-9.]/g, "");
+        const parts = clean.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+      }
+
+      // 入力欄にリアルタイムでカンマを適用するイベントハンドラ
+      function attachCommaFormatter(inputElem) {
+        inputElem.addEventListener("input", function (e) {
+          const start = this.selectionStart;
+          const oldLen = this.value.length;
+          const formatted = formatNumberWithCommas(this.value);
+          this.value = formatted;
+          const newLen = formatted.length;
+          // カーソル位置の補正
+          const newCursor = Math.max(0, start + (newLen - oldLen));
+          this.setSelectionRange(newCursor, newCursor);
+        });
+      }
+
+      const principalInput = document.getElementById("principal");
+      const monthlyInput = document.getElementById("monthly");
+      attachCommaFormatter(principalInput);
+      attachCommaFormatter(monthlyInput);
+
+      function calculateLoan() {
+        // カンマを除去して数値化
+        const rawPrincipal = principalInput.value.replace(/,/g, "").trim();
+        const rawMonthly = monthlyInput.value.replace(/,/g, "").trim();
+        const years = parseFloat(document.getElementById("years").value);
+        const interest = parseFloat(document.getElementById("interest").value);
+        const resultBox = document.getElementById("resultBox");
+
+        if (isNaN(years) || isNaN(interest) || years <= 0) {
+          resultBox.style.display = "block";
+          resultBox.innerHTML =
+            '<span class="error">返済期間（年）と年利率（%）を正しく入力してください。</span>';
+          return;
+        }
+
+        const n = years * 12; // 支払い月数
+        const r = interest / 100 / 12; // 月利
+
+        const principal = parseFloat(rawPrincipal);
+        const monthly = parseFloat(rawMonthly);
+
+        if (!isNaN(principal) && principal > 0) {
+          let calcMonthly = 0;
+          if (r > 0) {
+            calcMonthly =
+              (principal * (r * Math.pow(1 + r, n))) / (Math.pow(1 + r, n) - 1);
+          } else {
+            calcMonthly = principal / n;
+          }
+          const total = calcMonthly * n;
+          const totalInterest = total - principal;
+
+          resultBox.style.display = "block";
+          resultBox.innerHTML = `
+            <h3>計算結果 (JavaScript)</h3>
+            借入額: ¥${formatNumberWithCommas(Math.round(principal))}<br>
+            返済期間: ${years} 年 (${n} ヶ月)<br>
+            年利率: ${interest}%<br>
+            毎月返済額: <b>¥${formatNumberWithCommas(Math.round(calcMonthly))}</b> (詳細: ¥${calcMonthly.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})<br>
+            返済総額: ¥${formatNumberWithCommas(Math.round(total))}<br>
+            利息総額: ¥${formatNumberWithCommas(Math.round(totalInterest))}
+          `;
+          monthlyInput.value = formatNumberWithCommas(Math.round(calcMonthly));
+        } else if (!isNaN(monthly) && monthly > 0) {
+          let calcPrincipal = 0;
+          if (r > 0) {
+            calcPrincipal =
+              (monthly * (Math.pow(1 + r, n) - 1)) / (r * Math.pow(1 + r, n));
+          } else {
+            calcPrincipal = monthly * n;
+          }
+          const total = monthly * n;
+          const totalInterest = total - calcPrincipal;
+
+          resultBox.style.display = "block";
+          resultBox.innerHTML = `
+            <h3>計算結果 (JavaScript)</h3>
+            毎月返済額: ¥${formatNumberWithCommas(Math.round(monthly))}<br>
+            返済期間: ${years} 年 (${n} ヶ月)<br>
+            年利率: ${interest}%<br>
+            借入可能額: <b>¥${formatNumberWithCommas(Math.round(calcPrincipal))}</b> (詳細: ¥${calcPrincipal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})<br>
+            返済総額: ¥${formatNumberWithCommas(Math.round(total))}<br>
+            利息総額: ¥${formatNumberWithCommas(Math.round(totalInterest))}
+          `;
+          principalInput.value = formatNumberWithCommas(
+            Math.round(calcPrincipal),
+          );
+        } else {
+          resultBox.style.display = "block";
+          resultBox.innerHTML =
+            '<span class="error">「借入額」または「毎月返済額」のどちらかを入力してください。</span>';
+        }
+      }
+
+      document
+        .getElementById("jsCalcBtn")
+        .addEventListener("click", calculateLoan);
+    </script>
+  </body>
+</html>

@@ -1,4 +1,7 @@
-CREATE TABLE disposable(trash INT);
+CREATE TABLE disposable
+    (
+        trash INT
+    )
+;
 DESCRIBE disposable;
-DROP TABLE disposable;
-SHOW tables;
+DROP TABLE disposable; SHOW tables;

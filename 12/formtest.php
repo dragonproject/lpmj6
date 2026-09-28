@@ -1,4 +1,7 @@
-<?php // formtest.php
+<?php
+
+// formtest.
+
 echo <<<_END
   <html>
     <head>
@@ -13,4 +16,3 @@ echo <<<_END
     </body>
   </html>
 _END;
-?>

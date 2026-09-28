@@ -1,4 +1,4 @@
-<?php // test2.php
-  echo "a: [" . TRUE  . "]<br>";
-  echo "b: [" . FALSE . "]<br>";
-?>
+<?php
+
+echo "a: [" . true  . "]\n";
+echo "b: [" . false . "]\n";

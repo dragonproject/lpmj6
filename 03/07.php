@@ -1,4 +1,5 @@
 <?php
+
   $author = "Bill Gates";
 
   $text = "Measuring programming progress by lines of code is like
@@ -6,5 +7,4 @@
 
   - $author.";
 
-  echo $text;
-?>
+  echo $text; // phpcs:ignore PSR2.Files.EndFileNewline.TooMany

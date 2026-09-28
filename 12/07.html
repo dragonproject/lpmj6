@@ -1,8 +1,73 @@
-Vegetables
-<select name="veg" size="1">
-  <option value="Peas">Peas</option>
-  <option value="Beans">Beans</option>
-  <option value="Carrots">Carrots</option>
-  <option value="Cabbage">Cabbage</option>
-  <option value="Broccoli">Broccoli</option>
-</select>
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>セレクトボックスの操作 - 07.html</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      pre {
+        font-family: monospace;
+        background: #f8f8f8;
+        padding: 10px;
+        border-radius: 4px;
+        width: fit-content;
+      }
+      .result {
+        margin-top: 10px;
+        padding: 8px 12px;
+        background: #e6ffe6;
+        border-left: 4px solid #00cc00;
+        width: fit-content;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>セレクトボックスの操作</h2>
+
+    <form id="vegForm" method="post" action="veg_result.php">
+      <pre>
+    野菜:
+        <select name="veg" size="1">
+            <option value="Peas">Peas</option>
+            <option value="Beans" selected="selected">Beans</option>
+            <option value="Carrots">Carrots</option>
+            <option value="Cabbage">Cabbage</option>
+            <option value="Broccoli">Broccoli</option>
+        </select>
+    <input type="submit" value="送信">
+  </pre>
+    </form>
+
+    <hr />
+    <h3>参考： JavaScript で選択値を取得する例</h3>
+    <button id="btnSelect">選択中の野菜をアラートで表示</button>
+    <div id="msg"></div>
+
+    <script>
+      const vegSelect = document.getElementById("vegForm").veg;
+      const btnSelect = document.getElementById("btnSelect");
+      const msgBox = document.getElementById("msg");
+
+      btnSelect.addEventListener("click", function () {
+        // select要素の value プロパティで選択値を取得
+        const selectedValue = vegSelect.value;
+        const selectedText =
+          vegSelect.options[vegSelect.selectedIndex].textContent;
+
+        const message =
+          "現在選択中の野菜: " +
+          selectedValue +
+          " (optionタグのテキスト: " +
+          selectedText +
+          ")";
+        msgBox.textContent = message;
+        alert(message);
+      });
+    </script>
+  </body>
+</html>

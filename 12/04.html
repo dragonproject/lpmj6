@@ -1,4 +1,80 @@
-   Vanilla <input type="checkbox" name="ice" value="Vanilla">
- Chocolate <input type="checkbox" name="ice" value="Chocolate">
-Strawberry <input type="checkbox" name="ice" value="Strawberry">
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>チェックボックス操作の例（フォームあり）- 04.html</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      pre {
+        font-family: monospace;
+        background: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>チェックボックス操作の例（フォームあり）</h2>
 
+    <form id="iceForm" method="post" action="ice_result.php">
+      <pre>
+    アイスクリーム: 
+        <label>
+            <input type="checkbox" name="ice[]" value="バニラ"> バニラ
+        </label>
+        <label>
+            <input type="checkbox" name="ice[]" value="チョコレート"> チョコレート
+        </label>
+        <label>
+            <input type="checkbox" name="ice[]" value="ストロベリー"> ストロベリー
+        </label>
+    <input type="submit" value="送信">
+  </pre>
+    </form>
+
+    <p>
+      ※ 上のフォームで好みのフレーバーを選んで送信ボタンをクリックすると、結果が
+      <code>ice_result.php</code> に送られます。
+    </p>
+
+    <hr />
+    <h3>参考： JavaScript で選択状態を確認する例</h3>
+    <button id="btnCheck">選択中のフレーバーをアラートで表示</button>
+    <div id="msg"></div>
+
+    <script>
+      document
+        .getElementById("btnCheck")
+        .addEventListener("click", function () {
+          const checkboxes = document.querySelectorAll(
+            'input[name="ice[]"]:checked',
+          );
+          const resultBox = document.getElementById("msg");
+
+          if (checkboxes.length === 0) {
+            resultBox.textContent =
+              "何も選択されていません。チェックを入れてからもう一度押してください。";
+            return;
+          }
+
+          const selected = [];
+          checkboxes.forEach((checkbox) => {
+            selected.push(checkbox.value);
+          });
+
+          // 配列をカンマ区切りの文字列にする
+          const message =
+            "現在選択中のフレーバー: " +
+            selected.join(", ") +
+            " (合計 " +
+            selected.length +
+            " 個)";
+
+          resultBox.textContent = message;
+          alert(message); // 参考: アラートでも表示
+        });
+    </script>
+  </body>
+</html>

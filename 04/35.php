@@ -1,12 +1,21 @@
 <?php
-  $fp = fopen("text.txt", 'wb');
+// ../text.txtファイルに100回 "data" という文字列を書き込む
+// 失敗した場合はループを抜ける
+// w: write, wb: write binary, r: read, rb: read binary, a: append
+// + : r+ w+ a+
 
-  for ($j = 0 ; $j < 100 ; ++$j)
-  {
-	$written = fwrite($fp, "data");
+$fp = fopen("../text.txt", 'wb');
 
-	if ($written == FALSE) break;
-  }
+for ($j = 0 ; $j < 100 ; ++$j) {
+    // fwrite() は書き込まれたバイト数を返す
+    // 失敗した場合は false を返す
+    $written = fwrite($fp, "data\n");
+    echo "Wrote " . $written . " bytes to file\n";
 
-  fclose($fp);
-?>
+    // false の場合は break
+    if ($written == false) {
+        break;
+    }
+}
+
+fclose($fp);

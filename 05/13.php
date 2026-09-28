@@ -1,14 +1,21 @@
 <?php
-  $object1 = new User();
-  $object1->name = "Alice";
-  $object2 = clone $object1;
-  $object2->name = "Amy";
+namespace Example13;
 
-  echo "object1 name = " . $object1->name . "<br>";
-  echo "object2 name = " . $object2->name;
-  
-  class User
-  {
-    public $name;
-  }
-?>
+// オブジェクトのコピー 
+// cloneキーワードを使うと、オブジェクトのコピーを作成できる
+// $object1と$object2は異なるオブジェクトを参照する
+$object1 = new User();
+$object1->name = "Alice";
+
+// $object1を$object2にコピーする
+// $object2は$object1のコピーである
+$object2 = clone $object1;
+$object2->name = "Amy";
+
+echo "object1 name = " . $object1->name . "\n";
+echo "object2 name = " . $object2->name . "\n";
+
+class User
+{
+    public ?string $name = null;
+}

@@ -1,5 +1,23 @@
 <?php
-  static $int = 0;         // Allowed 
-  static $int = 1+2;       // Disallowed (will produce a Parse error)
-  static $int = sqrt(144); // Disallowed
-?>
+
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+
+/**
+ * 【静的変数（static）の初期値指定ルールについての解説】
+ *
+ * static 変数を宣言する際、初期値として指定できる内容には文法上の制約があります。
+ */
+
+// 1. リテラル（固定の値）の指定: 常に許可 (Allowed)
+// 0 や "文字列"、true など、コンパイル時に確定している値は問題なく指定できます。
+static $int = 0;
+
+// 2. 式・計算結果の指定:
+// 古いPHP（PHP 5.5以前）では構文エラー（Parse error）になっていました。
+// ※ PHP 5.6以降は「1 + 2」のような定数式（静的な計算式）の指定が可能になりました。
+// static $int = 1 + 2;
+
+// 3. 関数呼び出し結果の指定:
+// 古いPHPでは動的な関数呼び出し結果を初期値にすることはできませんでした（Disallowed）。
+// ※ PHP 8.3以降は関数の戻り値を含む動的な式も初期値に直接書けるようになりました。
+// static $int = sqrt(144);

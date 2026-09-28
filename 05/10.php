@@ -1,14 +1,16 @@
 <?php
-  $object = new User;
-  print_r($object);
+namespace Example10;
 
-  class User
-  {
-    public $name, $password;
+$object = new User();
+print_r($object);
 
-    function save_user()
+class User
+{
+    public ?string $name = null;
+    public ?string $password = null;
+
+    public function save_user()
     {
-  	  echo "Save User code goes here";
+        echo "Save User code goes here";
     }
-  }
-?>
+}

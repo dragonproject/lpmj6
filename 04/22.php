@@ -7,4 +7,3 @@
   elseif ($page == "Login") echo "You selected Login";
   elseif ($page == "Links") echo "You selected Links";
   else                      echo "Unrecognized selection";
-?>

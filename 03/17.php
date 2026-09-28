@@ -1,13 +1,22 @@
 <?php
 
-  echo test();
-  echo "<br><br>";
-  echo test();
-    
-  function test()
-  {
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+
+test();
+echo "\n";
+test();
+echo "\n";
+test();
+
+/**
+ * 静的変数（static）の動作確認用関数
+ * 関数が終了しても $count の値が保持され、呼び出されるたびに出力・加算されます
+ *
+ * @return void
+ */
+function test(): void
+{
     static $count = 0;
     echo $count;
     $count++;
-  }
-?>
+}

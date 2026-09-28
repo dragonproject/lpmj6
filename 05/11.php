@@ -1,20 +1,33 @@
 <?php
-  $object = new User;
-  print_r($object); echo "<br>";
+namespace Example11;
 
-  $object->name = "Joe";
-  $object->password = "mypass";
-  print_r($object); echo "<br>";
+// Userクラスのインスタンス（オブジェクト）を作成する
+$object = new User();
 
-  $object->save_user();
+// オブジェクトのプロパティを出力する
+// print_r()は、変数の情報を読みやすく整形して表示する関数
+print_r($object);
+echo "\n";
 
-  class User
-  {
-    public $name, $password;
+// オブジェクトのプロパティに値を代入する
+$object->name = "Joe";
+$object->password = "mypass";
 
-    function save_user()
+// オブジェクトのプロパティを出力する
+// print_r()は、変数の情報を読みやすく整形して表示する関数
+print_r($object);
+echo "\n";
+
+// オブジェクトのメソッドを呼び出す
+$object->save_user();
+
+class User
+{
+    public ?string $name = null;
+    public ?string $password = null;
+
+    public function save_user()
     {
-  	  echo "Save User code goes here";
+        echo "Save User code goes here";
     }
-  }
-?>
+}

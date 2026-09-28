@@ -1,14 +1,24 @@
 <?php
-  $object1 = new User();
-  $object1->name = "Alice";
-  $object2 = $object1;
-  $object2->name = "Amy";
+namespace Example12;
 
-  echo "object1 name = " . $object1->name . "<br>";
-  echo "object2 name = " . $object2->name;
-  
-  class User
-  {
-    public $name;
-  }
-?>
+// オブジェクトの参照渡し
+// object1とobject2は同じオブジェクトを参照する
+// なぜなら、object2はobject1をコピーしているのではなく、object1を参照しているから
+
+$object1 = new User();
+$object1->name = "Alice";
+
+// object2にobject1を代入
+// object2はobject1を参照する
+$object2 = $object1;
+// object2のnameプロパティを変更する
+// object1のnameプロパティも変更される
+$object2->name = "Amy";
+
+echo "object1 name = " . $object1->name . "\n";
+echo "object2 name = " . $object2->name . "\n";
+
+class User
+{
+    public ?string $name = null;
+}

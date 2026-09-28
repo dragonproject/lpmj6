@@ -1,5 +1,7 @@
 <?php
-  $month = "March";
 
-  if ($month == "March") echo "It's springtime";
-?>
+$month = "March";
+
+if ($month == "March") {
+    echo "It's springtime";
+}
