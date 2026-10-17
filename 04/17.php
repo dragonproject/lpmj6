@@ -3,7 +3,7 @@
 // 動作確認用の関数
 function getnext(): int
 {
-    echo "getnext() が呼び出されました\n";
+    echo "getnext() が呼び出されました<br>";
     return 1;
 }
 
@@ -18,16 +18,16 @@ function checkCondition(?int $finished = null): string
     // 終了条件: finished が 1 または getnext() が 1 の場合は終了
     // ??: Null合体演算子
     if (($finished ?? 0) == 1 or (function_exists('getnext') && getnext() == 1)) {
-        return "判定結果: 終了 (true)\n";
+        return "判定結果: 終了 (true)<br>";
     }
-    return "判定結果: 継続 (false)\n";
+    return "判定結果: 継続 (false)<br>";
 }
 
 // --- 動作確認 ---
-echo "【パターン1: \$finished = 1 の場合 (短絡評価により getnext は実行されない)】\n";
+echo "【パターン1: \$finished = 1 の場合 (短絡評価により getnext は実行されない)】<br>";
 echo checkCondition(1);
 
-echo "\n【パターン2: \$finished = 0 の場合 (getnext が実行される)】\n";
+echo "<br>【パターン2: \$finished = 0 の場合 (getnext が実行される)】<br>";
 echo checkCondition(0);
 
 // 【Null合体演算子 (??) の説明】

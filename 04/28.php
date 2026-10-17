@@ -4,8 +4,8 @@ $fuel = 10;
 
 while ($fuel > 1) {
     // Keep driving
-    echo $fuel . "\n";
-    echo "There's enough fuel\n";
+    echo $fuel . "<br>";
+    echo "There's enough fuel<br>";
     $fuel -= 1;
-    echo $fuel . "\n======\n";
+    echo $fuel . "<br>======<br>";
 }

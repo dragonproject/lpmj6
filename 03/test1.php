@@ -4,6 +4,6 @@
 
 $username = "Fred Smith";
 echo $username;
-echo "\n";
+echo "<br>";
 $current_user = $username;
 echo $current_user;

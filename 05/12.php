@@ -1,4 +1,5 @@
 <?php
+
 namespace Example12;
 
 // オブジェクトの参照渡し
@@ -15,8 +16,8 @@ $object2 = $object1;
 // object1のnameプロパティも変更される
 $object2->name = "Amy";
 
-echo "object1 name = " . $object1->name . "\n";
-echo "object2 name = " . $object2->name . "\n";
+echo "object1 name = " . $object1->name . "<br>";
+echo "object2 name = " . $object2->name . "<br>";
 
 class User
 {

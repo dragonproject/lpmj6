@@ -5,7 +5,7 @@ $days_in_year     = (int)date('L') ? 366 : 365;    // うるう年なら366日�
 $days_to_new_year = $days_in_year - $day_number;  // 年末までの残り日数
 
 if ($days_to_new_year < 30) {
-    echo "Not long now till new year\n";
+    echo "Not long now till new year<br>";
 } else {
-    echo "Days to new year: " . $days_to_new_year . "\n";
+    echo "Days to new year: " . $days_to_new_year . "<br>";
 }

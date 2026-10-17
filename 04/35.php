@@ -6,11 +6,11 @@
 
 $fp = fopen("../text.txt", 'wb');
 
-for ($j = 0 ; $j < 100 ; ++$j) {
+for ($j = 0; $j < 100; ++$j) {
     // fwrite() は書き込まれたバイト数を返す
     // 失敗した場合は false を返す
-    $written = fwrite($fp, "data\n");
-    echo "Wrote " . $written . " bytes to file\n";
+    $written = fwrite($fp, "data<br>");
+    echo "Wrote " . $written . " bytes to file<br>";
 
     // false の場合は break
     if ($written == false) {

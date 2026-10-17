@@ -3,7 +3,7 @@
 // 配列を受け取って、それぞれの要素を大文字にする
 $names = fix_names("WILLIAM", "henry", "gatES");
 echo $names[0] . " " . $names[1] . " " . $names[2];
-echo "\n";
+echo "<br>";
 
 // 配列を受け取って、それぞれの要素を大文字にする
 function fix_names($n1, $n2, $n3)

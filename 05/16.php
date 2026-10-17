@@ -1,4 +1,5 @@
 <?php
+
 namespace Example16;
 
 // オブジェクトのプロパティにアクセスし、メソッドを呼び出す 
@@ -13,10 +14,10 @@ $user->password = "mypass";
 
 // プロパティを出力する
 echo $user->name;
-echo "\n";
+echo "<br>";
 // メソッドを呼び出す
 echo $user->get_password();
-echo "\n";
+echo "<br>";
 
 class User
 {

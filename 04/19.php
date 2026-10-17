@@ -8,10 +8,10 @@ if ($bank_balance < 100) {
 }
 
 echo $money;
-echo "\n";
+echo "<br>";
 echo $bank_balance;
-echo "\n";
+echo "<br>";
 
 $message = $bank_balance < 100 ? "不足しています" : "足りています";
 echo "$message";
-echo "\n";
+echo "<br>";

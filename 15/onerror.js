@@ -4,11 +4,11 @@
 
   function errorHandler(message, url, line)
   {
-    out  = "Sorry, an error was encountered.\n\n";
-    out += "Error: " + message + "\n";
-    out += "URL: "   + url     + "\n";
-    out += "Line: "  + line    + "\n\n";
-    out += "Click OK to continue.\n\n";
+    out  = "Sorry, an error was encountered.<br><br>";
+    out += "Error: " + message + "<br>";
+    out += "URL: "   + url     + "<br>";
+    out += "Line: "  + line    + "<br><br>";
+    out += "Click OK to continue.<br><br>";
     alert(out);
     return true;
   }

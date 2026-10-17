@@ -2,10 +2,11 @@
 
 // phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 
+
 test();
-echo "\n";
+echo "<br>";
 test();
-echo "\n";
+echo "<br>";
 test();
 
 /**

@@ -23,3 +23,5 @@ function longdate($timestamp) // phpcs:ignore Generic.WhiteSpace.ScopeIndent.Inc
 // time() で現在日時のUnixタイムスタンプを取得し、
 // longdate() 関数に渡して、返ってきた文字列を echo で出力
 echo longdate(time());
+
+echo "<br>";

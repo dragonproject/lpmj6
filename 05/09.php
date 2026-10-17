@@ -8,7 +8,7 @@
 // PHP 5.4以前ではarray_combine関数が存在しない
 
 if (function_exists("array_combine")) {
-    echo "Function exists\n";
+    echo "Function exists<br>";
 } else {
-    echo "Function does not exist - better write our own\n";
+    echo "Function does not exist - better write our own<br>";
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Example11;
 
 // Userクラスのインスタンス（オブジェクト）を作成する
@@ -7,7 +8,7 @@ $object = new User();
 // オブジェクトのプロパティを出力する
 // print_r()は、変数の情報を読みやすく整形して表示する関数
 print_r($object);
-echo "\n";
+echo "<br>";
 
 // オブジェクトのプロパティに値を代入する
 $object->name = "Joe";
@@ -16,7 +17,7 @@ $object->password = "mypass";
 // オブジェクトのプロパティを出力する
 // print_r()は、変数の情報を読みやすく整形して表示する関数
 print_r($object);
-echo "\n";
+echo "<br>";
 
 // オブジェクトのメソッドを呼び出す
 $object->save_user();

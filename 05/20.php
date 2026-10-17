@@ -1,4 +1,5 @@
 <?php
+
 namespace Example20;
 
 
@@ -8,13 +9,13 @@ namespace Example20;
 $example = new Example();
 
 // クラス名からアクセス
-echo Example::class . "\n";
-echo Example::$name . "\n";
-echo Example::$age . "\n";
+echo Example::class . "<br>";
+echo Example::$name . "<br>";
+echo Example::$age . "<br>";
 
 // インスタンスからアクセス
-echo $example->name . "\n";
-echo $example->age . "\n";
+echo $example->name . "<br>";
+echo $example->age . "<br>";
 
 class Example
 {

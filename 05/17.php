@@ -10,7 +10,7 @@ $object1->name = "Alice";
 
 // プロパティを出力する
 echo $object1->name;
-echo "\n";
+echo "<br>";
 
 class User
 {

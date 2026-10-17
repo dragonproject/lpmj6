@@ -1,6 +1,6 @@
 <?php
 
-  $number = 12345 * 67890;
-  echo substr($number, 3, 3);
-  echo "\n";
-  echo $number;
+$number = 12345 * 67890;
+echo substr($number, 3, 3);
+echo "<br>";
+echo $number;
