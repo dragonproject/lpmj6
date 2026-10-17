@@ -8,6 +8,12 @@ echo "<br>";
 test();
 echo "<br>";
 test();
+echo "<br>";
+test();
+echo "<br>";
+test();
+echo "<br>";
+test();
 
 /**
  * 静的変数（static）の動作確認用関数

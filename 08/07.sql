@@ -1,1 +1,2 @@
-ALTER TABLE classics DROP id;
+ALTER TABLE classics
+    DROP id;
